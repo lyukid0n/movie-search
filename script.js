@@ -93,7 +93,7 @@ const renderCard = (array) => {
 };
 
 const render = async () => {
-  renderCard(await movieData);
+  renderCard([...await movieData]);
 };
 
 render();
@@ -103,9 +103,26 @@ document.querySelector(".searchContainer").addEventListener("submit", async (e) 
   let newData = (await movieData).filter((data) => {
     const { original_title } = data;
     const { value } = document.querySelector("input");
-    return value
-      .split("")
-      .every((str, idx) => str.toLowerCase() === original_title[idx].toLowerCase());
+    // 공백 시 전체 카드
+    if (value === ""){
+      return true;
+    }
+
+    for (let i=0;i<original_title.length - value.length + 1;i++){
+      let check = true
+      for (let j=0;j<value.length;j++){
+        console.log(original_title[i+j], value[j])
+        if (original_title[i+j] !== value[j]){
+          check = false;
+        }
+      }
+      if (check){
+        return true;
+      }
+    }
+    // return value
+    //   .split("")
+    //   .every((str, idx) => str.toLowerCase() === original_title[idx].toLowerCase());
   });
   document.querySelector(".cardContainer").replaceChildren();
   renderCard(newData);
