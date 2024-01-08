@@ -18,11 +18,10 @@ let movieData = fetch("https://api.themoviedb.org/3/movie/top_rated?language=en-
   .then((data) => data.results);
 
 const modal = (element) => {
-  console.log('hi')
   document.querySelector(".modalContainer").replaceChildren();
-  const { original_title, overview, poster_path, popularity } = element
+  const { original_title, overview, poster_path, popularity } = element;
   let modalDiv = document.createElement("div");
-  modalDiv.setAttribute('class', "modal")
+  modalDiv.setAttribute("class", "modal");
   let imageDiv = document.createElement("div");
   imageDiv.setAttribute("class", "modal_image");
   let image = document.createElement("img");
@@ -34,11 +33,11 @@ const modal = (element) => {
   let overviewDiv = document.createElement("div");
   overviewDiv.setAttribute("class", "modal_overview");
   let overviewText = document.createTextNode(overview);
-  overviewDiv.appendChild(overviewText)
+  overviewDiv.appendChild(overviewText);
   let popularityDiv = document.createElement("div");
   popularityDiv.setAttribute("class", "modal_popularity");
-  let popularityText = document.createTextNode(parseInt(popularity)+"%");
-  popularityDiv.appendChild(popularityText)
+  let popularityText = document.createTextNode(parseInt(popularity) + "%");
+  popularityDiv.appendChild(popularityText);
   imageDiv.appendChild(image);
   modalDiv.appendChild(imageDiv);
   modalDiv.appendChild(titleDiv);
@@ -46,11 +45,11 @@ const modal = (element) => {
   modalDiv.appendChild(overviewDiv);
 
   document.querySelector(".modalContainer").append(modalDiv);
-  document.querySelector(".modalContainer").style.display = 'flex'
+  document.querySelector(".modalContainer").style.display = "flex";
   document.querySelector(".modalContainer").addEventListener("click", () => {
     document.querySelector(".modalContainer").replaceChildren();
-    document.querySelector(".modalContainer").style.display = 'none'
-  })
+    document.querySelector(".modalContainer").style.display = "none";
+  });
 };
 
 const Card = (element) => {
@@ -93,7 +92,7 @@ const renderCard = (array) => {
 };
 
 const render = async () => {
-  renderCard([...await movieData]);
+  renderCard([...(await movieData)]);
 };
 
 render();
@@ -104,25 +103,22 @@ document.querySelector(".searchContainer").addEventListener("submit", async (e) 
     const { original_title } = data;
     const { value } = document.querySelector("input");
     // 공백 시 전체 카드
-    if (value === ""){
+    if (value === "") {
       return true;
     }
 
-    for (let i=0;i<original_title.length - value.length + 1;i++){
-      let check = true
-      for (let j=0;j<value.length;j++){
-        console.log(original_title[i+j], value[j])
-        if (original_title[i+j] !== value[j]){
+    for (let i = 0; i < original_title.length - value.length + 1; i++) {
+      let check = true;
+      for (let j = 0; j < value.length; j++) {
+        if (original_title[i + j] !== value[j]) {
           check = false;
+          break;
         }
       }
-      if (check){
+      if (check) {
         return true;
       }
     }
-    // return value
-    //   .split("")
-    //   .every((str, idx) => str.toLowerCase() === original_title[idx].toLowerCase());
   });
   document.querySelector(".cardContainer").replaceChildren();
   renderCard(newData);
