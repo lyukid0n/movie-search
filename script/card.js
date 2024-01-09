@@ -17,7 +17,7 @@ const Card = (element) => {
     releaseDateDiv.appendChild(releaseDateText);
     let voteAverageDiv = document.createElement("div");
     voteAverageDiv.setAttribute("class", "voteAverage");
-    let voteAverageText = document.createTextNode(vote_average);
+    let voteAverageText = document.createTextNode(`평점 : ${vote_average.toFixed(1)} / 10`);
     voteAverageDiv.append(voteAverageText);
     let overviewDiv = document.createElement("div");
     overviewDiv.setAttribute("class", "overview");
