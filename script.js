@@ -53,7 +53,7 @@ const modal = (element) => {
 };
 
 const Card = (element) => {
-  const { adult, original_title, release_date, overview, backdrop_path, poster_path } = element;
+  const { overview, original_title, release_date, vote_average, poster_path } = element;
 
   let cardDiv = document.createElement("div");
   cardDiv.setAttribute("class", "card");
@@ -69,30 +69,30 @@ const Card = (element) => {
   releaseDateDiv.setAttribute("class", "release_date");
   let releaseDateText = document.createTextNode(release_date);
   releaseDateDiv.appendChild(releaseDateText);
-  let adultDiv = document.createElement("div");
-  adultDiv.setAttribute("class", "adult");
-  let adultText = document.createTextNode(`${adult ? "adult" : "everyone"}`);
-  adultDiv.append(adultText);
+  let voteAverageDiv = document.createElement("div");
+  voteAverageDiv.setAttribute("class", "voteAverage");
+  let voteAverageText = document.createTextNode(vote_average);
+  voteAverageDiv.append(voteAverageText);
+  let overviewDiv = document.createElement("div");
+  overviewDiv.setAttribute("class", "overview");
+  let overviewText = document.createTextNode(overview);
+  overviewDiv.append(overviewText);
   imageDiv.appendChild(image);
   cardDiv.appendChild(imageDiv);
   cardDiv.appendChild(titleDiv);
   cardDiv.appendChild(releaseDateDiv);
-  cardDiv.appendChild(adultDiv);
+  cardDiv.appendChild(voteAverageDiv);
+  cardDiv.appendChild(overviewDiv)
 
   cardDiv.addEventListener("click", () => modal(element));
 
   document.querySelector(".cardContainer").append(cardDiv);
 };
 
-const renderCard = (array) => {
-  console.log(array);
-  array.forEach((el) => {
+const render = async () => {
+  [...(await movieData)].forEach((el) => {
     return Card(el);
   });
-};
-
-const render = async () => {
-  renderCard([...(await movieData)]);
 };
 
 render();

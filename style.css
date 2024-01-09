@@ -12,7 +12,6 @@ body {
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   border-radius: 7px;
   align-items: center;
   padding: 15px;
@@ -26,6 +25,11 @@ body {
   .title {
     font-size: 20px;
     font-weight: 700;
+  }
+  .image {
+    > img {
+      height: 360px;
+    }
   }
 }
 .card:hover {
