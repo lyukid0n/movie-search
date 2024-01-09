@@ -13,3 +13,4 @@
     - search.js
     - movieData.js
 - api key 제거
+    - movieData.js에서 apikey 값 필요
